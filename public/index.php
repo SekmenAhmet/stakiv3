@@ -39,4 +39,7 @@ $app->router->post('/friendslist', [FriendsController::class, 'postfriendslist']
 $app->router->get('/searchResult','searchResult');
 $app->router->post('/searchResult', [FriendsController::class, 'postSearchResult']);
 
+$app->router->get('/contact','contact');
+$app->router->post('/contact', [PageController::class, 'contact']);
+
 $app->router->matchRoute($_SERVER['REQUEST_URI']);

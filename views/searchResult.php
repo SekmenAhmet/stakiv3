@@ -22,6 +22,12 @@
 
 <div class="container">
     <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Résultat de votre recherche :</h1>
+    <?php if(!empty($_SESSION['alreadyFriend'])) :?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $_SESSION['alreadyFriend']; ?>
+        </div>
+        <?php unset($_SESSION['alreadyFriend']); ?>
+    <?php endif; ?>
 
 <div class="row justify-content-center">
     <div class="col-md-3">

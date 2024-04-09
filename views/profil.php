@@ -105,8 +105,11 @@
 
                     <!-- Formulaire de suppression de compte -->
                     <form action="/deleteAccount" method="POST">
-                        <button class="btn btn-danger btn-block">Supprimer le compte</button>
+                        <button class="btn btn-danger btn-block mb-1">Supprimer le compte</button>
                     </form>
+
+                    <!-- Bouton pour nous contacter -->
+                    <a href="/contact" class="btn btn-danger btn-block">Nous contacter</a>
                 </div>
             </div>
         </div>

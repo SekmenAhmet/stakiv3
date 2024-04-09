@@ -17,6 +17,10 @@ class FriendsController{
         $this->db = new Database();
         $this->notifications = new Notifications();
     }
+    public function alreadyFriend($id, $ami_id){
+        $request = "SELECT * FROM amis WHERE user_id = :id AND ami_id = :ami_id";
+        return !empty($this->db->executeQuery($request,['id' => $id, 'ami_id' => $ami_id]));
+    }
     private function executeQuery($query, $params = []) {
         return $this->db->executeQuery($query, $params);
     }
@@ -38,8 +42,11 @@ class FriendsController{
     public function postSearchResult(Request $req, Response $res) : void{
         $body = $req->bodyParser();
         if(isset($body['ajouter'])){
+            if(!$this->alreadyFriend($_SESSION['id'], $_SESSION['searchedUser']['id'])){
             $this->addFriends($_SESSION['id'], $_SESSION['searchedUser']['id']);
             $this->notifications->friendNotification( $_SESSION['searchedUser']['id'], $_SESSION['id']);
+            }
+            $_SESSION['alreadyFriend'] = "Cette utilisateur est déjà votre ami";
         }
         $res->redirect('searchResult');
     }
@@ -90,7 +97,7 @@ class FriendsController{
                 ':ami_id' => $result['sender_id']
             ]);
             $this->deleteFriendsNotifs($notif_id);
-            $this->deleteDemande($result['user_id'], $result['sender_id']);
+            $this->deleteDemande($_SESSION['id'], $result['sender_id']);
         } elseif (isset($body['refuser'])) {
             $this->deleteFriendsNotifs($notif_id);
             $this->deleteDemande($result['user_id'], $result['sender_id']);
