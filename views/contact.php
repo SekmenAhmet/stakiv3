@@ -14,6 +14,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/friendslist">Liste d'amis</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profil">Profil</a>
+                </li>
             </ul>
         </div>
     </div>

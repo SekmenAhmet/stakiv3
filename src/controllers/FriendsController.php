@@ -17,10 +17,21 @@ class FriendsController{
         $this->db = new Database();
         $this->notifications = new Notifications();
     }
-    public function alreadyFriend($id, $ami_id){
-        $request = "SELECT * FROM amis WHERE user_id = :id AND ami_id = :ami_id";
-        return !empty($this->db->executeQuery($request,['id' => $id, 'ami_id' => $ami_id]));
+    public function alreadyFriend($id, $ami_id): bool
+    {
+        // Vérifier dans la table des amis
+        $requestAmis = "SELECT * FROM amis WHERE user_id = :user_id AND ami_id = :ami_id";
+        $amis = $this->db->executeQuery($requestAmis, [':user_id' => $id, ':ami_id' => $ami_id])->fetchAll(PDO::FETCH_ASSOC);
+
+        // Vérifier dans la table des demandes d'ami
+        $requestDemandes = "SELECT * FROM demande_ami WHERE user_id = :user_id AND addedUser_id = :ami_id";
+        $demandes = $this->db->executeQuery($requestDemandes, [':user_id' => $id, ':ami_id' => $ami_id])->fetchAll(PDO::FETCH_ASSOC);
+
+        // Si la personne est déjà un ami ou s'il y a une demande d'ami en attente, retourner vrai
+        return !empty($amis) || !empty($demandes);
     }
+
+
     private function executeQuery($query, $params = []) {
         return $this->db->executeQuery($query, $params);
     }
@@ -43,13 +54,15 @@ class FriendsController{
         $body = $req->bodyParser();
         if(isset($body['ajouter'])){
             if(!$this->alreadyFriend($_SESSION['id'], $_SESSION['searchedUser']['id'])){
-            $this->addFriends($_SESSION['id'], $_SESSION['searchedUser']['id']);
-            $this->notifications->friendNotification( $_SESSION['searchedUser']['id'], $_SESSION['id']);
+                $this->addFriends($_SESSION['id'], $_SESSION['searchedUser']['id']);
+                $this->notifications->friendNotification( $_SESSION['searchedUser']['id'], $_SESSION['id']);
+            } else {
+                $_SESSION['alreadyFriend'] = "Cette utilisateurs est déjà votre ami";
             }
-            $_SESSION['alreadyFriend'] = "Cette utilisateur est déjà votre ami";
         }
         $res->redirect('searchResult');
     }
+
     public function addFriends($user, $ami) : void{
         $request = "INSERT INTO demande_ami (user_id, addedUser_id) VALUES (:user_id, :ami_id);";
         $this->executeQuery($request, [':user_id' => $user, ':ami_id' => $ami]);
