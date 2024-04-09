@@ -18,9 +18,4 @@ class Request{
         }
         return $body;
     }
-    public function getUrl() : string {
-        $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $domain = $_SERVER['HTTP_HOST'];
-        return $protocol . $domain . "/validate";
-    }
 }

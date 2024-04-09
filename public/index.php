@@ -3,9 +3,9 @@
 require '../vendor/autoload.php';
 
 use App\Application;
-use App\Controllers\FriendsController;
-use App\Controllers\PageController;
-use App\Controllers\UserController;
+use App\controllers\FriendsController;
+use App\controllers\PageController;
+use App\controllers\UserController;
 
 
 $app = new Application();

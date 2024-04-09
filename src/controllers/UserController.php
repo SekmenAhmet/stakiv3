@@ -37,7 +37,7 @@ class UserController{
             $req->session->setSession($this->db ,$body['email']);
             $user = UserModel::getUser($this->db, "email", $body['email']);
             $this->notif->welcomNotif($user['id']);
-            header('Location: /profil');
+            $res->redirect('profil');
         } else {
             $_SESSION['email-error'] = "Email déjà utilisé";
         }
@@ -79,26 +79,20 @@ class UserController{
             $res->redirect("deleteAccount");
         }
     }
-
     public function profilmodif(Request $req, Response $res){
         $body = $req->bodyParser();
-
         if(!empty($body['username'])){
             UserModel::modifyUsername($this->db, $body['username'], $_SESSION['id']);
             $_SESSION['username'] = $body['username'];
         }
-
         if(!empty($body['email'])){
             UserModel::modifyEmail($this->db, $body['email'], $_SESSION['id']);
             $_SESSION['email'] = $body['email'];
         }
-
         if (isset($body['biographie'])){
             UserModel::modifyBio($this->db, $body['biographie'], $_SESSION['id']);
             $_SESSION['biographie'] = $body['biographie'];
         }
-
         $res->redirect('profil');
     }
-
 }

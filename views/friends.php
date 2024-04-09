@@ -37,7 +37,7 @@
                     <label for="search">Rechercher des amis</label>
                     <input type="search" class="form-control" id="search" name="search">
                 </div>
-                <button type="submit" class="btn btn-primary" id="btn"">Ajouter</button>
+                <button type="submit" class="btn btn-primary" id="btn"">Ajouter
             </form>
         </div>
     </div>

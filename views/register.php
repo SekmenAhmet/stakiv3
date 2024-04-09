@@ -27,10 +27,10 @@
                             </div>
                             <?php unset($_SESSION['email-error']); ?>
                         <?php endif; ?>
-                        <input class="form-control" type="text" name="name" placeholder="Nom" required>
+                        <input class="form-control" type="text" name="lastname" placeholder="Nom" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="lastname" placeholder="Prénom" required>
+                        <input class="form-control" type="text" name="name" placeholder="Prénom" required>
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="text" name="username" placeholder="Nom d'utilisateur" required>

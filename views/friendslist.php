@@ -25,7 +25,7 @@
 
     <div class="row">
         <?php foreach ($_SESSION['amis'] as $row): ?>
-            <div class="col-md-10 mb-10">
+            <div class="col-md-3 mb-10">
                 <div class="card border shadow-sm">
                     <div class="card-body text-center">
                         <h5 class="card-title font-weight-bold"><?php echo $row['username']; ?></h5>
