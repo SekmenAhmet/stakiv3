@@ -16,9 +16,6 @@ class UserController{
         $this->db = new Database();
         $this->notif = new Notifications();
     }
-    private function executeQuery($query, $params = []) {
-        return $this->db->executeQuery($query, $params);
-    }
     public function isExists(string $email) : bool {
         return !empty(UserModel::getUser($this->db, "email", $email));
     }
@@ -50,7 +47,7 @@ class UserController{
             $this->isExists($body['email'])
         ){
             $request = "SELECT email, passwd FROM users WHERE email = :email and passwd = password(:passwd)";
-            $query = $this->executeQuery($request, [':email' => $body['email'], ':passwd' => $body['passwd']]);
+            $query = $this->db->executeQuery($request, [':email' => $body['email'], ':passwd' => $body['passwd']]);
             $result = $query->fetch(PDO::FETCH_ASSOC);
             if($result){
                 $req->session->setSession($this->db, $body['email']);
@@ -74,7 +71,7 @@ class UserController{
         $body = $req->bodyParser();
         if ($this->isExists($body['email'])) {
             $request = "DELETE FROM users WHERE email = :email";
-            $this->executeQuery($request, [':email' => $body['email']]);
+            $this->db->executeQuery($request, [':email' => $body['email']]);
             $req->session->destroy();
             $res->redirect("deleteAccount");
         }

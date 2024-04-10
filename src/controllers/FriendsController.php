@@ -27,10 +27,6 @@ class FriendsController{
         $requestDemandes = "SELECT * FROM demande_ami WHERE user_id = :user_id AND addedUser_id = :ami_id";
         return !empty($this->db->executeQuery($requestDemandes, [':user_id' => $id, ':ami_id' => $ami_id])->fetchAll(PDO::FETCH_ASSOC));
     }
-
-    private function executeQuery($query, $params = []) {
-        return $this->db->executeQuery($query, $params);
-    }
     public function friends(Request $req, Response $res) : void{
         $_SESSION['usersToAdd'] = $this->userToAdd();
         $res->render('friends');
@@ -62,12 +58,9 @@ class FriendsController{
         }
         $res->redirect('searchResult');
     }
-
-
-
     public function addFriends($user, $ami) : void{
         $request = "INSERT INTO demande_ami (user_id, addedUser_id) VALUES (:user_id, :ami_id);";
-        $this->executeQuery($request, [':user_id' => $user, ':ami_id' => $ami]);
+        $this->db->executeQuery($request, [':user_id' => $user, ':ami_id' => $ami]);
     }
     public function friendslist(Request $req, Response $res){
         $friends = $this->getFriends($_SESSION['id']);
@@ -93,29 +86,29 @@ class FriendsController{
         $request = "SELECT ami_id FROM amis WHERE user_id = :id 
                 UNION 
                 SELECT user_id FROM amis WHERE ami_id = :id";
-        return $this->executeQuery($request, [':id' => $id])->fetchAll(PDO::FETCH_ASSOC);
+        return $this->db->executeQuery($request, [':id' => $id])->fetchAll(PDO::FETCH_ASSOC);
     }
     public function userToAdd(){
         $request = "SELECT username FROM users";
-        return $this->executeQuery($request)->fetchAll(PDO::FETCH_ASSOC);
+        return $this->db->executeQuery($request)->fetchAll(PDO::FETCH_ASSOC);
     }
     public function acceptFriend(Request $req, Response $res)
     {
         $body = $req->bodyParser();
         $notif_id = $body['notification_id'];
         $request = "SELECT user_id, sender_id FROM notifications WHERE id = :id";
-        $result = $this->executeQuery($request, [':id' => $notif_id])->fetch(PDO::FETCH_ASSOC);
+        $result = $this->db->executeQuery($request, [':id' => $notif_id])->fetch(PDO::FETCH_ASSOC);
         if (isset($body['accepter'])) {
             $requestAdd = "INSERT INTO amis (user_id, ami_id) VALUES (:user_id, :ami_id)";
-            $this->executeQuery($requestAdd, [
+            $this->db->executeQuery($requestAdd, [
                 ':user_id' => $result['user_id'],
                 ':ami_id' => $result['sender_id']
             ]);
-            $this->deleteFriendsNotifs($notif_id);
-            $this->deleteDemande($_SESSION['id'], $result['sender_id']);
-        } elseif (isset($body['refuser'])) {
-            $this->deleteFriendsNotifs($notif_id);
             $this->deleteDemande($result['user_id'], $result['sender_id']);
+            $this->deleteFriendsNotifs($notif_id);
+        } elseif (isset($body['refuser'])) {
+            $this->deleteDemande($result['user_id'], $result['sender_id']);
+            $this->deleteFriendsNotifs($notif_id);
         }
         $res->redirect('notifs');
     }
