@@ -24,6 +24,7 @@
 
 <div class="container" style="margin-top: 50px;">
     <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5">Contactez l'assistance</h1>
+        <p class="lead font-weight-normal text-muted text-center">Un problème ? Une suggestion ? Faites nous en part !</p>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="box border p-4">
