@@ -1,18 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container">
-        <span class="navbar-brand">Staki</span>
+        <a class="navbar-brand" href="/">Staki</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Accueil</a>
-                </li>
-            </ul>
         </div>
     </div>
 </nav>
+
 
 <div class="container" style="margin-top: 100px;"> <!-- Added inline CSS for margin-top -->
     <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5">Connexion</h1>

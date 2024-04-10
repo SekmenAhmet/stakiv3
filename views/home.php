@@ -29,12 +29,18 @@
 <div class="container mt-5">
     <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Home</h1>
     <div class="row justify-content-start">
-        <div class="col-md-3">
+            <?php if(isset($_SESSION['email'])): ?>
+        <div class="col-md-3 offset-md-10 position-relative">
             <div class="card">
                 <div class="card-body">
-                    <a href="/friends" class="btn btn-primary btn-block">Ajouter des amis</a>
+                    <h5 class="card-title">SideBar</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="/notifs">Notifications</a></li>
+                        <li class="list-group-item"><a href="/friendslist">Liste d'amis</a></li>
+                        <li class="list-group-item"><a href="/friends">Ajouter des amis</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
+        <?php endif; ?>
 </div>
