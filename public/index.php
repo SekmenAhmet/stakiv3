@@ -42,4 +42,7 @@ $app->router->post('/searchResult', [FriendsController::class, 'postSearchResult
 $app->router->get('/contact','contact');
 $app->router->post('/contact', [PageController::class, 'contact']);
 
+$app->router->get('/changemdp','changemdp');
+$app->router->post('/changemdp', [UserController::class, 'changemdp']);
+
 $app->router->matchRoute($_SERVER['REQUEST_URI']);

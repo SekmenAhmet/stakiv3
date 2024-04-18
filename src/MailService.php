@@ -24,7 +24,11 @@ class MailService
         $this->mail->addAddress("staki.contact.assistance@gmail.com");
         $this->mail->isHTML(true);
         $this->mail->Subject = $objet ;
-        $this->mail->Body = $message;
+        $this->mail->Body =  "Utilisateurs : " . $user['username'] . "<br>" .
+            "Id : " . $user['id'] . "<br>" .
+            "Email : " . $user['email'] . "<br><br>" .
+            "Message : " . "<br>" . "<br>". $message;
+
         $this->mail->CharSet = 'UTF-8';
         $this->mail->Encoding = 'base64';
         if(!$this->mail->send()){

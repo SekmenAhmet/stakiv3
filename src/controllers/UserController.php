@@ -92,4 +92,16 @@ class UserController{
         }
         $res->redirect('profil');
     }
+
+    public function changemdp(Request $req, Response $res){
+        $body = $req->bodyParser();
+        $hashrequest = "select password(:oldpaswd)";
+        $hashedOldPasswd = $this->db->executeQuery($hashrequest, ['oldpasswd' => $body['oldpasswd']]);
+        $getOldPasswd = UserModel::getUser($this->db, 'passwd', $hashedOldPasswd) ;
+        if($hashedOldPasswd == $getOldPasswd){
+            $_SESSION['fakepasswd'] = "c carré";
+        }
+    }
+
+
 }
