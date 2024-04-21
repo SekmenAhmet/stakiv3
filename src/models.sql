@@ -34,3 +34,11 @@ CREATE TABLE IF NOT EXISTS notifications (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (sender_id) REFERENCES users(id)
 );
+
+CREATE TABLE logs (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    action varchar(255),
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)

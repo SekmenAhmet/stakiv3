@@ -49,4 +49,21 @@ $app->router->post('/changemdp', [UserController::class, 'changemdp']);
 $app->router->get('/admin',[AdminController::class, 'getAdmin']);
 $app->router->post('/admin', [AdminController::class, 'postAdmin']);
 
+$app->router->get('/adminLogs', [AdminController::class, 'getAdminLogs']);
+$app->router->post('/adminLogs', [AdminController::class, 'postAdminLogs']);
+
+$app->router->get('/adminUsers', [AdminController::class, 'getAdminUsers']);
+$app->router->post('/adminUsers', [AdminController::class, 'postAdminUsers']);
+
+$app->router->get('/adminFriends', [AdminController::class, 'getAdminFriends']);
+$app->router->post('/adminFriends', [AdminController::class, 'adminFriends']);
+
+$app->router->get('/adminFriendRequests', [AdminController::class, 'getAdminFriendRequests']);
+$app->router->post('/adminFriendRequests', [AdminController::class, 'adminFriendRequests']);
+
+$app->router->get('/adminNotifs', [AdminController::class, 'getAdminNotifs']);
+$app->router->post('/adminNotifs', [AdminController::class, 'adminNotifs']);
+
+$app->router->get('/notAdmin','notAdmin');
+
 $app->router->matchRoute($_SERVER['REQUEST_URI']);

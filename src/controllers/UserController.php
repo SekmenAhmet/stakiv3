@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Database;
+use App\Logs;
 use App\models\UserModel;
 use App\Notifications;
 use App\Request;
@@ -32,6 +33,7 @@ class UserController{
             $req->session->setSession(Database::getInstance() ,$body['email']);
             $user = UserModel::getUser(Database::getInstance(), "email", $body['email']);
             $this->notif->welcomNotif($user['id']);
+            Logs::addToLogs($_SESSION['id'], 'Inscription');
             $res->redirect('profil');
         } else {
             $_SESSION['email-error'] = "Email déjà utilisé";
@@ -50,6 +52,7 @@ class UserController{
             $result = $query->fetch();
             if($result){
                 $req->session->setSession(Database::getInstance(), $body['email']);
+                Logs::addToLogs($_SESSION['id'], "Connexion");
                 $res->redirect("profil");
             } else {
                 $_SESSION['error'] = "Identifiants incorrects.";

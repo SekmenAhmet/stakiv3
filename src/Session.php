@@ -9,6 +9,7 @@ class Session {
         session_start();
     }
     public function destroy(){
+        Logs::addToLogs($_SESSION['id'], 'Déconnexion');
         session_unset();
         session_destroy();
     }
