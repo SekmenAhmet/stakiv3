@@ -6,6 +6,7 @@ use App\Application;
 use App\controllers\FriendsController;
 use App\controllers\PageController;
 use App\controllers\UserController;
+use App\controllers\AdminController;
 
 
 $app = new Application();
@@ -44,5 +45,8 @@ $app->router->post('/contact', [PageController::class, 'contact']);
 
 $app->router->get('/changemdp','changemdp');
 $app->router->post('/changemdp', [UserController::class, 'changemdp']);
+
+$app->router->get('/admin',[AdminController::class, 'getAdmin']);
+$app->router->post('/admin', [AdminController::class, 'postAdmin']);
 
 $app->router->matchRoute($_SERVER['REQUEST_URI']);

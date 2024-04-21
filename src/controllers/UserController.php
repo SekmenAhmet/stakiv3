@@ -10,14 +10,12 @@ use App\Response;
 use PDO;
 
 class UserController{
-    private Database $db;
     private Notifications $notif;
     public function __construct(){
-        $this->db = new Database();
         $this->notif = new Notifications();
     }
     public function isExists(string $email) : bool {
-        return !empty(UserModel::getUser($this->db, "email", $email));
+        return !empty(UserModel::getUser(Database::getInstance(), "email", $email));
     }
     public function register(Request $req, Response $res): void {
         $body = $req->bodyParser();
@@ -30,9 +28,9 @@ class UserController{
                 $body['passwd'],
                 $body['ddn']
             );
-            $model->save($this->db);
-            $req->session->setSession($this->db ,$body['email']);
-            $user = UserModel::getUser($this->db, "email", $body['email']);
+            $model->save(Database::getInstance());
+            $req->session->setSession(Database::getInstance() ,$body['email']);
+            $user = UserModel::getUser(Database::getInstance(), "email", $body['email']);
             $this->notif->welcomNotif($user['id']);
             $res->redirect('profil');
         } else {
@@ -46,11 +44,12 @@ class UserController{
             isset($body['passwd']) &&
             $this->isExists($body['email'])
         ){
+
             $request = "SELECT email, passwd FROM users WHERE email = :email and passwd = password(:passwd)";
-            $query = $this->db->executeQuery($request, [':email' => $body['email'], ':passwd' => $body['passwd']]);
-            $result = $query->fetch(PDO::FETCH_ASSOC);
+            $query = Database::getInstance()->executeQuery($request, [':email' => $body['email'], ':passwd' => $body['passwd']]);
+            $result = $query->fetch();
             if($result){
-                $req->session->setSession($this->db, $body['email']);
+                $req->session->setSession(Database::getInstance(), $body['email']);
                 $res->redirect("profil");
             } else {
                 $_SESSION['error'] = "Identifiants incorrects.";
@@ -71,7 +70,7 @@ class UserController{
         $body = $req->bodyParser();
         if ($this->isExists($body['email'])) {
             $request = "DELETE FROM users WHERE email = :email";
-            $this->db->executeQuery($request, [':email' => $body['email']]);
+            Database::getInstance()->executeQuery($request, [':email' => $body['email']]);
             $req->session->destroy();
             $res->redirect("deleteAccount");
         }
@@ -79,15 +78,15 @@ class UserController{
     public function profilmodif(Request $req, Response $res){
         $body = $req->bodyParser();
         if(!empty($body['username'])){
-            UserModel::modifyUsername($this->db, $body['username'], $_SESSION['id']);
+            UserModel::modifyUsername(Database::getInstance(), $body['username'], $_SESSION['id']);
             $_SESSION['username'] = $body['username'];
         }
         if(!empty($body['email'])){
-            UserModel::modifyEmail($this->db, $body['email'], $_SESSION['id']);
+            UserModel::modifyEmail(Database::getInstance(), $body['email'], $_SESSION['id']);
             $_SESSION['email'] = $body['email'];
         }
         if (isset($body['biographie'])){
-            UserModel::modifyBio($this->db, $body['biographie'], $_SESSION['id']);
+            UserModel::modifyBio(Database::getInstance(), $body['biographie'], $_SESSION['id']);
             $_SESSION['biographie'] = $body['biographie'];
         }
         $res->redirect('profil');
@@ -96,12 +95,10 @@ class UserController{
     public function changemdp(Request $req, Response $res){
         $body = $req->bodyParser();
         $hashrequest = "select password(:oldpaswd)";
-        $hashedOldPasswd = $this->db->executeQuery($hashrequest, ['oldpasswd' => $body['oldpasswd']]);
-        $getOldPasswd = UserModel::getUser($this->db, 'passwd', $hashedOldPasswd) ;
+        $hashedOldPasswd = Database::getInstance()->executeQuery($hashrequest, ['oldpasswd' => $body['oldpasswd']]);
+        $getOldPasswd = UserModel::getUser(Database::getInstance(), 'passwd', $hashedOldPasswd) ;
         if($hashedOldPasswd == $getOldPasswd){
             $_SESSION['fakepasswd'] = "c carré";
         }
     }
-
-
 }

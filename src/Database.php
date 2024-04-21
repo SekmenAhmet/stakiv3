@@ -6,6 +6,9 @@ use PDO;
 use PDOException;
 
 class Database extends PDO {
+
+    public static ?Database $dbinstance = null;
+
     public function __construct(){
         try {
             $dbname = "stakiv3";
@@ -17,6 +20,14 @@ class Database extends PDO {
             echo "Erreur : " . $e;
         }
     }
+
+    public static function getInstance(){
+        if(self::$dbinstance === null){
+            self::$dbinstance = new self();
+        }
+        return self::$dbinstance;
+    }
+
     public function executeQuery($query, $params = []) {
         $connexion = $this->prepare($query);
         $connexion->execute($params);

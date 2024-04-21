@@ -63,6 +63,12 @@
                         <li class="list-group-item"><a href="/notifs">Notifications</a></li>
                         <li class="list-group-item"><a href="/friendslist">Liste d'amis</a></li>
                         <li class="list-group-item"><a href="/friends">Ajouter des amis</a></li>
+
+                        <?php if($_SESSION['email'] == 'a@gmail.com'){ ?>
+                            <li class="list-group-item"><a href="/admin">Panel administrateur</a></li>
+
+                        <?php }    ?>
+
                     </ul>
                 </div>
             </div>
