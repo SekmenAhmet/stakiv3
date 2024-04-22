@@ -18,7 +18,7 @@ class UserController{
     public function isExists(string $email) : bool {
         return !empty(UserModel::getUser(Database::getInstance(), "email", $email));
     }
-    public function register(Request $req, Response $res): void {
+    public function register(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         if(!$this->isExists($body['email'])) {
             $model = new UserModel(
@@ -39,14 +39,12 @@ class UserController{
             $_SESSION['email-error'] = "Email déjà utilisé";
         }
     }
-    public function login(Request $req, Response $res) : void
-    {
+    public function login(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         if (isset($body['email']) &&
             isset($body['passwd']) &&
             $this->isExists($body['email'])
         ){
-
             $request = "SELECT email, passwd FROM users WHERE email = :email and passwd = password(:passwd)";
             $query = Database::getInstance()->executeQuery($request, [':email' => $body['email'], ':passwd' => $body['passwd']]);
             $result = $query->fetch();
@@ -63,13 +61,11 @@ class UserController{
             $res->redirect("login");
         }
     }
-    public function logout(Request $req,Response $res)
-    {
+    public function logout(Request $req,Response $res) : void {
         $req->session->destroy();
         $res->redirect("login");
     }
-    public function deleteAccount(Request $req, Response $res)
-    {
+    public function deleteAccount(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         if ($this->isExists($body['email'])) {
             $request = "DELETE FROM users WHERE email = :email";
@@ -78,7 +74,7 @@ class UserController{
             $res->redirect("deleteAccount");
         }
     }
-    public function profilmodif(Request $req, Response $res){
+    public function profilmodif(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         if(!empty($body['username'])){
             UserModel::modifyUsername(Database::getInstance(), $body['username'], $_SESSION['id']);
@@ -94,8 +90,7 @@ class UserController{
         }
         $res->redirect('profil');
     }
-
-    public function changemdp(Request $req, Response $res){
+    public function changemdp(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         $hashrequest = "select password(:oldpaswd)";
         $hashedOldPasswd = Database::getInstance()->executeQuery($hashrequest, ['oldpasswd' => $body['oldpasswd']]);

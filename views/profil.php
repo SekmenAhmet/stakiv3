@@ -9,8 +9,6 @@
     </div>
 </nav>
 
-
-<!-- Profile Information -->
 <div class="container mt-5 position-relative">
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">
@@ -54,7 +52,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-3 offset-md-9 position-absolute top-0 end-0">
             <div class="card">
                 <div class="card-body">
@@ -63,21 +60,15 @@
                         <li class="list-group-item"><a href="/notifs">Notifications</a></li>
                         <li class="list-group-item"><a href="/friendslist">Liste d'amis</a></li>
                         <li class="list-group-item"><a href="/friends">Ajouter des amis</a></li>
-
                         <?php if($_SESSION['email'] == 'a@gmail.com'){ ?>
                             <li class="list-group-item"><a href="/admin">Panel administrateur</a></li>
-
                         <?php }    ?>
-
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<!-- Champ de biographie -->
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -92,8 +83,6 @@
         </div>
     </div>
 </div>
-
-<!-- Bouton pour modifier les informations du profil -->
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -101,24 +90,17 @@
         </div>
     </div>
 </div>
-
-<!-- Logout and Delete Account Buttons -->
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <!-- Formulaire de déconnexion -->
                     <form action="/logout" method="POST">
                         <button class="btn btn-danger btn-block mb-1">Déconnexion</button>
                     </form>
-
-                    <!-- Formulaire de suppression de compte -->
                     <form action="/deleteAccount" method="POST">
                         <button class="btn btn-danger btn-block mb-1">Supprimer le compte</button>
                     </form>
-
-                    <!-- Bouton pour nous contacter -->
                     <a href="/contact" class="btn btn-danger btn-block">Nous contacter</a>
                 </div>
             </div>

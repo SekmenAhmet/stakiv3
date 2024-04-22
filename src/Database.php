@@ -21,14 +21,13 @@ class Database extends PDO {
         }
     }
 
-    public static function getInstance(){
+    public static function getInstance() : self {
         if(self::$dbinstance === null){
             self::$dbinstance = new self();
         }
         return self::$dbinstance;
     }
-
-    public function executeQuery($query, $params = []) {
+    public function executeQuery($query, $params = []){
         $connexion = $this->prepare($query);
         $connexion->execute($params);
         return $connexion;

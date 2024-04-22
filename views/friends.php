@@ -49,7 +49,8 @@
         <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Liste des utilisateurs  :</h1>
 
         <div class="row">
-        <?php foreach ($_SESSION['usersToAdd'] as $user): ?>
+            <?php /** @var array $usersToAdd */
+        foreach ($usersToAdd as $user): ?>
             <div class="col-md-3 mb-3">
                 <div class="box border p-3 text-center">
                     <p class="message font-weight-bold"><?php echo $user['username']; ?></p>

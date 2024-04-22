@@ -1,15 +1,15 @@
 <?php
 
 namespace App;
-class Request{
+class Request {
     public Session $session;
     public function __construct(){
         $this->session = new Session();
     }
-    public function getMethod() : String{
+    public function getMethod() : string {
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
-    public function bodyParser() : array{
+    public function bodyParser() : array {
         $body = [];
         $method = ($this->getMethod() === 'post') ? $_POST : $_GET;
         $input = ($this->getMethod() === 'post') ? INPUT_POST : INPUT_GET;

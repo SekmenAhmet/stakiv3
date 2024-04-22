@@ -15,20 +15,20 @@ class FriendsController{
     {
         $this->notifications = new Notifications();
     }
-    public function alreadyFriend($id, $ami_id): bool
-    {
+    public function alreadyFriend(int $id, int $ami_id) : bool {
         $requestAmis = "SELECT * FROM amis WHERE user_id = :user_id AND ami_id = :ami_id";
         return !empty(Database::getInstance()->executeQuery($requestAmis, [':user_id' => $id, ':ami_id' => $ami_id])->fetchAll(PDO::FETCH_ASSOC));
     }
-    public function alreadyAsked($id, $ami_id) {
+    public function alreadyAsked(int $id, int $ami_id) : bool {
         $requestDemandes = "SELECT * FROM demande_ami WHERE user_id = :user_id AND addedUser_id = :ami_id";
         return !empty(Database::getInstance()->executeQuery($requestDemandes, [':user_id' => $id, ':ami_id' => $ami_id])->fetchAll(PDO::FETCH_ASSOC));
     }
-    public function friends(Request $req, Response $res) : void{
-        $_SESSION['usersToAdd'] = $this->userToAdd();
-        $res->render('friends');
+    public function friends(Request $req, Response $res) : void {
+        $res->render('friends', [
+            'usersToAdd' => $this->userToAdd()
+        ]);
     }
-    public function postfriends(Request $req, Response $res) : void{
+    public function postfriends(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         $_SESSION['searchedUser'] = UserModel::getUser(Database::getInstance(), "username", $body['search']);
 
@@ -39,7 +39,7 @@ class FriendsController{
             $res->redirect('friends');
         }
     }
-    public function postSearchResult(Request $req, Response $res): void {
+    public function postSearchResult(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         if (isset($body['ajouter'])) {
             if (!$this->alreadyAsked($_SESSION['id'], $_SESSION['searchedUser']['id'])) {
@@ -55,11 +55,11 @@ class FriendsController{
         }
         $res->redirect('searchResult');
     }
-    public function addFriends($user, $ami) : void{
+    public function addFriends(int $user, int $ami) : void {
         $request = "INSERT INTO demande_ami (user_id, addedUser_id) VALUES (:user_id, :ami_id);";
         Database::getInstance()->executeQuery($request, [':user_id' => $user, ':ami_id' => $ami]);
     }
-    public function friendslist(Request $req, Response $res){
+    public function friendslist(Request $req, Response $res) : void {
         $friends = $this->getFriends($_SESSION['id']);
         $amis = [];
         foreach ($friends as $friend) {
@@ -69,28 +69,26 @@ class FriendsController{
                 'username' => $ami_info['username']
             ];
         }
-        $_SESSION['amis'] = $amis;
-        $res->render('friendslist');
+        $res->render('friendslist', [
+            "amis" => $amis
+        ]);
     }
-    public function postfriendslist(Request $req, Response $res){
+    public function postfriendslist(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         if(isset($body['supprimer'])){
             $this->deleteFriend($_SESSION['id'], $body['friend_id']);
             $res->redirect('friendslist');
         }
     }
-    public function getFriends($id){
-        $request = "SELECT ami_id FROM amis WHERE user_id = :id 
-                UNION 
-                SELECT user_id FROM amis WHERE ami_id = :id";
+    public function getFriends(int $id) : array {
+        $request = "SELECT ami_id FROM amis WHERE user_id = :id UNION SELECT user_id FROM amis WHERE ami_id = :id";
         return Database::getInstance()->executeQuery($request, [':id' => $id])->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function userToAdd(){
+    public function userToAdd() : array {
         $request = "SELECT username FROM users";
         return Database::getInstance()->executeQuery($request)->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function acceptFriend(Request $req, Response $res)
-    {
+    public function acceptFriend(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         $notif_id = $body['notification_id'];
         $request = "SELECT user_id, sender_id FROM notifications WHERE id = :id";
@@ -109,16 +107,15 @@ class FriendsController{
         }
         $res->redirect('notifs');
     }
-    public function deleteFriendsNotifs($notif_id) {
+    public function deleteFriendsNotifs(int $notif_id) : void {
         $request = 'DELETE FROM notifications WHERE id = :notif_id';
         Database::getInstance()->executeQuery($request, ['notif_id' => $notif_id]);
     }
-    public function deleteDemande($user_id, $addedUser_id)
-    {
+    public function deleteDemande($user_id, $addedUser_id) : void {
         $request = "DELETE FROM demande_ami WHERE user_id = :user_id AND addedUser_id = :addedUser_id";
         Database::getInstance()->executeQuery($request, ['user_id' => $user_id, 'addedUser_id' => $addedUser_id]);
     }
-    public function deleteFriend($user_id, $ami_id){
+    public function deleteFriend($user_id, $ami_id) : void {
         $request = "DELETE FROM amis WHERE user_id = :user_id AND ami_id = :ami_id";
         Database::getInstance()->executeQuery($request, ["user_id" => $user_id, "ami_id" => $ami_id]);
     }

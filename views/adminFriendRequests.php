@@ -17,10 +17,10 @@
 <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5">Demande d'amis</h1>
 
 <?php
-require_once '../src/controllers/AdminController.php';
-$admin = new \App\controllers\AdminController();
-$demande_amis = $admin->showTable('demande_ami');
-?>
+//require_once '../src/controllers/AdminController.php';
+//$admin = new \App\controllers\AdminController();
+//$demande_amis = $admin->showTable('demande_ami');
+//?>
 
 <div class="container" style="margin-top: 50px;">
     <div class="table-responsive">
@@ -33,7 +33,8 @@ $demande_amis = $admin->showTable('demande_ami');
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($demande_amis as $row): ?>
+            <?php /** @var array $demande_amis */
+            foreach ($demande_amis as $row): ?>
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['user_id']; ?></td>

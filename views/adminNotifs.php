@@ -16,12 +16,6 @@
 
 <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5">Notifications</h1>
 
-<?php
-require_once '../src/controllers/AdminController.php';
-$admin = new \App\controllers\AdminController();
-$notifs = $admin->showTable('notifications');
-?>
-
 <div class="container" style="margin-top: 50px;">
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -35,7 +29,8 @@ $notifs = $admin->showTable('notifications');
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($notifs as $row): ?>
+            <?php /** @var array $notifs */
+            foreach ($notifs as $row): ?>
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['user_id']; ?></td>

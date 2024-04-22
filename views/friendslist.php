@@ -24,7 +24,8 @@
     <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Liste d'amis :</h1>
 
     <div class="row">
-        <?php foreach ($_SESSION['amis'] as $row): ?>
+        <?php /** @var array $amis */
+        foreach ($amis as $row): ?>
             <div class="col-md-3 mb-10">
                 <div class="card border shadow-sm">
                     <div class="card-body text-center">

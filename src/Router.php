@@ -2,6 +2,8 @@
 namespace App;
 
 use AltoRouter;
+
+
 class Router{
     private AltoRouter $router;
     public Response $response;
@@ -11,7 +13,7 @@ class Router{
         $this->response = new Response();
         $this->request  = new Request();
     }
-    public function matchRoute() : void{
+    public function matchRoute() : void {
         $match = $this->router->match();
         if ($match){    
             if (is_callable($match['target'])){

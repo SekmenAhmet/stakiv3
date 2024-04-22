@@ -16,12 +16,6 @@
 
 <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5">Logs</h1>
 
-<?php
-require_once '../src/controllers/AdminController.php';
-$admin = new \App\controllers\AdminController();
-$logs = $admin->showTable('logs');
-?>
-
 <div class="container" style="margin-top: 50px;">
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -34,7 +28,8 @@ $logs = $admin->showTable('logs');
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($logs as $row): ?>
+            <?php /** @var array $logs */
+            foreach ($logs as $row): ?>
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['user_id']; ?></td>

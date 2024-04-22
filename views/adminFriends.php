@@ -16,11 +16,6 @@
 
 <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5">Amis</h1>
 
-<?php
-require_once '../src/controllers/AdminController.php';
-$admin = new \App\controllers\AdminController();
-$amis = $admin->showTable('amis');
-?>
 
 <div class="container" style="margin-top: 50px;">
     <div class="table-responsive">
@@ -33,7 +28,8 @@ $amis = $admin->showTable('amis');
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($amis as $row): ?>
+            <?php /** @var array $amis */
+            foreach ($amis as $row): ?>
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['user_id']; ?></td>

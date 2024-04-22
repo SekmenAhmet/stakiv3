@@ -7,11 +7,10 @@ use PHPMailer\PHPMailer\SMTP;
 
 require '../vendor/autoload.php';
 
-class MailService
-{
+class MailService {
     private PHPMailer $mail;
 
-    public function contact($user = [], $email, $objet, $message){
+    public function contact(array $user = [],string $objet, string $message) : void {
         $this->mail = new PHPMailer();
         $this->mail->isSMTP();
         $this->mail->SMTPAuth = true;
