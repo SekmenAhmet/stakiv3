@@ -2,6 +2,7 @@
 namespace App;
 
 use AltoRouter;
+use Exception;
 
 
 class Router{
@@ -30,11 +31,19 @@ class Router{
         } 
     }
     public function get(string $route, $target) : self {
-        $this->router->map('GET', $route, $target);
+        try {
+            $this->router->map('GET', $route, $target);
+        } catch (Exception $e) {
+            echo $e;
+        }
         return $this;
     }
     public function post(string $route, $target) : self {
-        $this->router->map('POST', $route, $target);
+        try {
+            $this->router->map('POST', $route, $target);
+        } catch (Exception $e) {
+            echo $e;
+        }
         return $this;
     }
 }

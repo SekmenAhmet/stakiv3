@@ -16,6 +16,26 @@
 
 <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5">Utilisateurs</h1>
 
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form action="/adminUsers" method="POST" class="mb-5">
+
+<!--            --><?php //if(!empty($_SESSION['inexistantUser'])):?>
+<!--                <div class="alert alert-danger" role="alert">-->
+<!--                    --><?php //echo $_SESSION['inexistantUser']; ?>
+<!--                </div>-->
+<!--                --><?php //unset($_SESSION['inexistantUser']);?>
+<!--            --><?php //endif; ?>
+
+            <div class="form-group">
+                <label for="search">Rechercher des utilisateurs</label>
+                <input type="search" class="form-control" id="search" name="search">
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn"">Ajouter
+        </form>
+    </div>
+</div>
+
 <div class="container" style="margin-top: 50px;">
     <div class="table-responsive">
         <table class="table table-bordered">

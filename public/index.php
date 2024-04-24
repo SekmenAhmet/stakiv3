@@ -5,14 +5,15 @@ require '../vendor/autoload.php';
 use App\Application;
 use App\controllers\FriendsController;
 use App\controllers\PageController;
+use App\controllers\StaksController;
 use App\controllers\UserController;
 use App\controllers\AdminController;
 
 
 $app = new Application();
 
-$app->router->get('/', 'home');
-$app->router->post('/', [PageController::class, 'home']);
+$app->router->get('/', [StaksController::class, 'getStaks']);
+$app->router->post('/', [StaksController::class, 'postStaks']);
 
 $app->router->get('/profil', 'profil');
 $app->router->post('/profil', [PageController::class, 'profil']);

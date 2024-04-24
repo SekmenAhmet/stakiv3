@@ -41,4 +41,12 @@ CREATE TABLE logs (
     FOREIGN KEY (user_id) REFERENCES users(id),
     action varchar(255),
     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
+
+CREATE TABLE staks (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    text varchar(255),
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

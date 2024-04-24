@@ -34,9 +34,9 @@ class UserModel
         ];
         $db->executeQuery($request, $params);
     }
-    public static function getUser(PDO $db, string $key, string $element) : array {
-        $request = "SELECT * FROM users WHERE {$key}= :{$key}";
-        $bindParamKey = ":{$key}";
+    public static function getUser(PDO $db, string $key, string $element){
+        $request = "SELECT * FROM users WHERE $key= :$key";
+        $bindParamKey = ":$key";
         $statement = $db->executeQuery($request, [$bindParamKey => $element]);
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
@@ -54,6 +54,6 @@ class UserModel
     }
     public static function showTable(string $tablename) : array {
         $request = "SELECT * FROM  $tablename";
-        return Database::getInstance()->executeQuery($request)->fetchAll(\PDO::FETCH_ASSOC);
+        return Database::getInstance()->executeQuery($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 }

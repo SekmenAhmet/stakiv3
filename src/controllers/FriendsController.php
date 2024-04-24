@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
 use App\Database;
 use App\models\UserModel;
@@ -11,8 +11,7 @@ use PDO;
 
 class FriendsController{
     private Notifications $notifications;
-    public function __construct()
-    {
+    public function __construct(){
         $this->notifications = new Notifications();
     }
     public function alreadyFriend(int $id, int $ami_id) : bool {
@@ -99,10 +98,10 @@ class FriendsController{
                 ':user_id' => $result['user_id'],
                 ':ami_id' => $result['sender_id']
             ]);
-            $this->deleteDemande($result['user_id'], $result['sender_id']);
+            $this->deleteDemande($_SESSION['id'], $result['sender_id']);
             $this->deleteFriendsNotifs($notif_id);
         } elseif (isset($body['refuser'])) {
-            $this->deleteDemande($result['user_id'], $result['sender_id']);
+            $this->deleteDemande($_SESSION['id'], $result['sender_id']);
             $this->deleteFriendsNotifs($notif_id);
         }
         $res->redirect('notifs');

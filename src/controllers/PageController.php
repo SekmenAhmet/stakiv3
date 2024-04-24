@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
 use App\MailService;
 use App\Notifications;
 use App\Request;
 use App\Response;
+use PHPMailer\PHPMailer\Exception;
 
 class PageController {
     public function profil(Request $req, Response $res) : void {
@@ -19,7 +20,11 @@ class PageController {
     public function contact(Request $req, Response $res) : void{
         $body = $req->bodyParser();
         $mailer = new MailService();
-        $mailer->contact($_SESSION, $_SESSION['email'], $body['objet'], $body['message']);
+        try {
+            $mailer->contact($_SESSION, $body['objet'], $body['message']);
+        } catch (Exception $e) {
+            echo $e;
+        }
         $res->redirect('contact');
     }
 }

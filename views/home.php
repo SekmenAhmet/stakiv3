@@ -26,21 +26,32 @@
     </div>
 </nav>
 
-<div class="container mt-5">
-    <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Home</h1>
-    <div class="row justify-content-start">
-            <?php if(isset($_SESSION['email'])): ?>
-        <div class="col-md-3 offset-md-10 position-relative">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">SideBar</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="/notifs">Notifications</a></li>
-                        <li class="list-group-item"><a href="/friendslist">Liste d'amis</a></li>
-                        <li class="list-group-item"><a href="/friends">Ajouter des amis</a></li>
-                    </ul>
+<div class="container col-md-6" style="margin-top: 20px;">
+    <?php if(isset($_SESSION['email'])) :?>
+        <form action="/" method="POST" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="stak" class="form-control" placeholder="Entrez votre stak">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Poster</button>
                 </div>
             </div>
-        </div>
-        <?php endif; ?>
+        </form>
+    <?php endif; ?>
+
+    <div class="table-responsive">
+        <?php /** @var array $staks */
+        $staks = array_reverse($staks);
+        foreach ($staks as $row): ?>
+            <div class="card mb-3 ">
+                <div class="card-header bg-primary text-white">
+                    <span class="font-weight-bold" style="font-size: 1.2rem;"><?php
+                        echo \App\models\UserModel::getUser(\App\Database::getInstance(), 'id', $row['user_id'])['username']; ?></span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" style="font-size: 1.1rem;"><?= $row['text'] ?></p>
+                    <p class="card-text text-muted" style="font-size: 1rem;">Envoyé le : <?= $row['time'] ?></p>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 </div>

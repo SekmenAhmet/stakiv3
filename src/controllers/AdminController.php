@@ -7,8 +7,7 @@ use App\models\UserModel;
 use App\Request;
 use App\Response;
 
-class AdminController
-{
+class AdminController {
     public function getAdmin(Request $req, Response $res) : void {
         if($_SESSION['email'] == 'a@gmail.com'){
             $res->render('admin');
@@ -16,7 +15,6 @@ class AdminController
             $res->redirect('notAdmin');
         }
     }
-
     public function getAdminLogs(Request $req, Response $res) : void {
         if($_SESSION['email'] == 'a@gmail.com'){
             $res->render('adminLogs', [
@@ -26,7 +24,6 @@ class AdminController
             $res->redirect('notAdmin');
         }
     }
-
     public function getAdminUsers(Request $req, Response $res) : void{
         if($_SESSION['email'] == 'a@gmail.com'){
             $res->render('adminUsers', [
@@ -36,7 +33,6 @@ class AdminController
             $res->redirect('notAdmin');
         }
     }
-
     public function getAdminNotifs(Request $req, Response $res) : void{
         if($_SESSION['email'] == 'a@gmail.com'){
             $res->render('adminNotifs', [

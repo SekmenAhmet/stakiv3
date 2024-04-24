@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
 use App\Database;
 use App\Logs;
@@ -8,7 +8,6 @@ use App\models\UserModel;
 use App\Notifications;
 use App\Request;
 use App\Response;
-use PDO;
 
 class UserController{
     private Notifications $notif;
@@ -65,15 +64,7 @@ class UserController{
         $req->session->destroy();
         $res->redirect("login");
     }
-    public function deleteAccount(Request $req, Response $res) : void {
-        $body = $req->bodyParser();
-        if ($this->isExists($body['email'])) {
-            $request = "DELETE FROM users WHERE email = :email";
-            Database::getInstance()->executeQuery($request, [':email' => $body['email']]);
-            $req->session->destroy();
-            $res->redirect("deleteAccount");
-        }
-    }
+
     public function profilmodif(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         if(!empty($body['username'])){

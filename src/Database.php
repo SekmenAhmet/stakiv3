@@ -20,14 +20,13 @@ class Database extends PDO {
             echo "Erreur : " . $e;
         }
     }
-
     public static function getInstance() : self {
         if(self::$dbinstance === null){
             self::$dbinstance = new self();
         }
         return self::$dbinstance;
     }
-    public function executeQuery($query, $params = []){
+    public function executeQuery(string $query, array $params = []){
         $connexion = $this->prepare($query);
         $connexion->execute($params);
         return $connexion;
