@@ -64,19 +64,30 @@ class UserController{
         $req->session->destroy();
         $res->redirect("login");
     }
-
     public function profilmodif(Request $req, Response $res) : void {
         $body = $req->bodyParser();
-        if(!empty($body['username'])){
-            UserModel::modifyUsername(Database::getInstance(), $body['username'], $_SESSION['id']);
-            $_SESSION['username'] = $body['username'];
+        if (!empty($body['username'])) {
+            if (empty(UserModel::getUser(Database::getInstance(), "username", $body['username']) && $body['username'] != $_SESSION['username'])) {
+                UserModel::modifyInfo(Database::getInstance(), 'username', $body['username'], $_SESSION['id']);
+                $_SESSION['username'] = $body['username'];
+            } else {
+                $_SESSION['infoError'] = "Ce nom d'utilisateur est déjà utilisé";
+            }
         }
-        if(!empty($body['email'])){
-            UserModel::modifyEmail(Database::getInstance(), $body['email'], $_SESSION['id']);
-            $_SESSION['email'] = $body['email'];
+        if (!empty($body['email'])) {
+            if (filter_var($body['email'], FILTER_VALIDATE_EMAIL)) {
+                if (empty(UserModel::getUser(Database::getInstance(), 'email', $body['email']) && $body['email'] != $_SESSION['email'])) {
+                    UserModel::modifyInfo(Database::getInstance(), 'email', $body['email'], $_SESSION['id']);
+                    $_SESSION['email'] = $body['email'];
+                } else {
+                    $_SESSION['infoError'] = "Cet email est déjà utilisé";
+                }
+            } else {
+                $_SESSION['infoError'] = "L'adresse email est invalide";
+            }
         }
-        if (isset($body['biographie'])){
-            UserModel::modifyBio(Database::getInstance(), $body['biographie'], $_SESSION['id']);
+        if (isset($body['biographie'])) {
+            UserModel::modifyInfo(Database::getInstance(), 'biographie', $body['biographie'], $_SESSION['id']);
             $_SESSION['biographie'] = $body['biographie'];
         }
         $res->redirect('profil');

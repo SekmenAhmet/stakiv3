@@ -41,19 +41,25 @@ class FriendsController{
     public function postSearchResult(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         if (isset($body['ajouter'])) {
-            if (!$this->alreadyAsked($_SESSION['id'], $_SESSION['searchedUser']['id'])) {
-                if (!$this->alreadyFriend($_SESSION['id'], $_SESSION['searchedUser']['id'])) {
-                    $this->addFriends($_SESSION['id'], $_SESSION['searchedUser']['id']);
-                    $this->notifications->friendNotification($_SESSION['searchedUser']['id'], $_SESSION['id']);
+            if ($_SESSION['searchedUser']['username'] != $_SESSION['username']) {
+                if (!$this->alreadyAsked($_SESSION['id'], $_SESSION['searchedUser']['id'])) {
+                    if (!$this->alreadyFriend($_SESSION['id'], $_SESSION['searchedUser']['id'])) {
+                        $this->addFriends($_SESSION['id'], $_SESSION['searchedUser']['id']);
+                        $this->notifications->friendNotification($_SESSION['searchedUser']['id'], $_SESSION['id']);
+                    } else {
+                        $_SESSION['friendError'] = "Cet utilisateur est déjà votre ami.";
+                    }
                 } else {
-                    $_SESSION['alreadyFriend'] = "Cette utilisateur est déjà votre ami";
+                    $_SESSION['friendError'] = "Vous avez déjà envoyé une demande d'ami à cet utilisateur.";
                 }
             } else {
-                $_SESSION['alreadyFriend'] = "Vous avez déjà envoyé une demande d'ami à cet utilisateur";
+                $_SESSION['friendError'] = "Tu ne peux pas t'ajouter toi même, réfléchis un peu.";
             }
         }
         $res->redirect('searchResult');
     }
+
+
     public function addFriends(int $user, int $ami) : void {
         $request = "INSERT INTO demande_ami (user_id, addedUser_id) VALUES (:user_id, :ami_id);";
         Database::getInstance()->executeQuery($request, [':user_id' => $user, ':ami_id' => $ami]);
@@ -111,7 +117,7 @@ class FriendsController{
         Database::getInstance()->executeQuery($request, ['notif_id' => $notif_id]);
     }
     public function deleteDemande($user_id, $addedUser_id) : void {
-        $request = "DELETE FROM demande_ami WHERE user_id = :user_id AND addedUser_id = :addedUser_id";
+        $request = "DELETE FROM demande_ami WHERE (user_id = :user_id AND addedUser_id = :addedUser_id) OR (user_id = :addedUser_id AND addedUser_id = :user_id)";
         Database::getInstance()->executeQuery($request, ['user_id' => $user_id, 'addedUser_id' => $addedUser_id]);
     }
     public function deleteFriend($user_id, $ami_id) : void {

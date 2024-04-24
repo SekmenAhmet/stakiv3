@@ -24,7 +24,7 @@
                     <?php endif; ?>
                     <div class="form-group">
                         <label for="email">Email :</label>
-                        <input class="form-control" type="text" name="email" required>
+                        <input class="form-control" type="email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="passwd">Mot de passe :</label>

@@ -40,17 +40,9 @@ class UserModel
         $statement = $db->executeQuery($request, [$bindParamKey => $element]);
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
-    public static function modifyEmail(PDO $db, string $email, int $id) : void {
-        $request = "UPDATE users SET email = :email WHERE id = :id";
-        $db->executeQuery($request, ['email' => $email, 'id' => $id]);
-    }
-    public static function modifyUsername(PDO $db, string $username, int $id) : void {
-        $request = "UPDATE users SET username = :username WHERE id = :id";
-        $db->executeQuery($request, ['username' => $username, 'id' => $id]);
-    }
-    public static function modifyBio(PDO $db, string $bio, int $id) : void {
-        $request = "UPDATE users SET biographie = :bio WHERE id = :id";
-        $db->executeQuery($request, ['bio' => $bio, 'id' => $id]);
+    public static function modifyInfo(PDO $db, string $element, $info, $id){
+        $request = "UPDATE users SET $element = :info WHERE id = :id";
+        $db->executeQuery($request, ['info' => $info, 'id' => $id]);
     }
     public static function showTable(string $tablename) : array {
         $request = "SELECT * FROM  $tablename";

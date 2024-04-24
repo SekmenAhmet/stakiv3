@@ -28,6 +28,7 @@
             <p class="lead font-weight-normal text-muted">Modifiez vos informations personnelles ci-dessous.</p>
         </div>
     </div>
+
     <div class="row justify-content-center">
         <div class="col-md-6">
             <form id="profileForm" action="/profilmodif" method="post">
