@@ -23,6 +23,7 @@ class FriendsController{
         return !empty(Database::getInstance()->executeQuery($requestDemandes, [':user_id' => $id, ':ami_id' => $ami_id])->fetchAll(PDO::FETCH_ASSOC));
     }
     public function friends(Request $req, Response $res) : void {
+        $res->setPageTitle('Amis');
         $res->render('friends', [
             'usersToAdd' => $this->userToAdd()
         ]);
@@ -74,6 +75,7 @@ class FriendsController{
                 'username' => $ami_info['username']
             ];
         }
+        $res->setPageTitle("Liste d'amis");
         $res->render('friendslist', [
             "amis" => $amis
         ]);

@@ -29,7 +29,7 @@
             </thead>
             <tbody>
             <?php /** @var array $logs */
-            foreach ($logs as $row): ?>
+            foreach (array_reverse($logs) as $row): ?>
                 <tr>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['user_id']; ?></td>

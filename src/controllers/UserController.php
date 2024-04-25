@@ -17,6 +17,12 @@ class UserController{
     public function isExists(string $email) : bool {
         return !empty(UserModel::getUser(Database::getInstance(), "email", $email));
     }
+
+    public function getRegister(Request $req, Response $res){
+        $res->setPageTitle('Inscription');
+        $res->render('register');
+    }
+
     public function register(Request $req, Response $res) : void {
         $body = $req->bodyParser();
         if(!$this->isExists($body['email'])) {
@@ -37,6 +43,10 @@ class UserController{
         } else {
             $_SESSION['email-error'] = "Email déjà utilisé";
         }
+    }
+    public function getLogin(Request $req, Response $res){
+        $res->setPageTitle('Connexion');
+        $res->render('login');
     }
     public function login(Request $req, Response $res) : void {
         $body = $req->bodyParser();
@@ -100,5 +110,9 @@ class UserController{
         if($hashedOldPasswd == $getOldPasswd){
             $_SESSION['fakepasswd'] = "c carré";
         }
+    }
+    public function getProfilModif(Request $req, Response $res){
+        $res->setPageTitle('Modifications');
+        $res->render('profilmodif');
     }
 }

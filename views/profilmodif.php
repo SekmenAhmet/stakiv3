@@ -47,7 +47,7 @@
                             <li class="list-group-item mb-3">
                                 <div class="row">
                                     <div class="col-sm-6"><strong>Email:</strong></div>
-                                    <div class="col-sm-6"><input type="text" name="email" class="form-control border-0 border-bottom" value="<?php echo $_SESSION['email']?>"></div>
+                                    <div class="col-sm-6"><input type="email" name="email" class="form-control border-0 border-bottom" value="<?php echo $_SESSION['email']?>"></div>
                                 </div>
                             </li>
                             <li class="list-group-item">

@@ -36,7 +36,6 @@
                             </div>
                             <?php unset($_SESSION['mailError']); ?>
                         <?php endif; ?>
-
                         <?php if(!empty($_SESSION['mailSuccess'])): ?>
                             <div class="alert alert-success" role="alert">
                                 <?php echo $_SESSION['mailSuccess']; ?>

@@ -27,10 +27,16 @@
 </nav>
 
 <div class="container col-md-6" style="margin-top: 20px;">
+    <?php if(!empty($_SESSION['stakError'])): ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $_SESSION['stakError']; ?>
+        </div>
+        <?php unset($_SESSION['stakError']); ?>
+    <?php endif; ?>
     <?php if(isset($_SESSION['email'])) :?>
         <form action="/" method="POST" class="mb-3">
             <div class="input-group">
-                <input type="text" name="stak" class="form-control" placeholder="Entrez votre stak">
+                <input type="text" name="stak" class="form-control" placeholder="Quelque chose à dire ?" autocomplete="off">
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-primary">Poster</button>
                 </div>
