@@ -27,12 +27,12 @@ class UserController{
         $body = $req->bodyParser();
         if(!$this->isExists($body['email'])) {
             $model = new UserModel(
-                $body['name'],
-                $body['lastname'],
-                $body['username'],
-                $body['email'],
-                $body['passwd'],
-                $body['ddn']
+                trim($body['name']),
+                trim($body['lastname']),
+                trim($body['username']),
+                trim($body['email']),
+                trim($body['passwd']),
+                trim($body['ddn'])
             );
             $model->save(Database::getInstance());
             $req->session->setSession(Database::getInstance() ,$body['email']);

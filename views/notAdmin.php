@@ -23,7 +23,7 @@
 </nav>
 
 <div class="container text-center mt-5">
-    <h1 class="display-4 text-danger">Tu n'est pas administrateur !</h1>
+    <h1 class="display-4 text-danger">Tu n'es pas administrateur !</h1>
     <p class="lead">Oops ! Il semble que tu aies atterri sur une page à laquelle tu n'as pas accès !</p>
     <p class="lead">Mais ne t'inquiète pas, tu es toujours un super utilisateur !</p>
     <a href="/" class="btn btn-primary">Retour à la page d'accueil</a>

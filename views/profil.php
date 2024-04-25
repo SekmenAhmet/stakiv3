@@ -6,6 +6,26 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <!-- Intégration de la barre latérale dans la navbar -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/notifs">Notifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/friendslist">Liste d'amis</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/friends">Ajouter des amis</a>
+                </li>
+                <?php if($_SESSION['email'] == 'a@gmail.com'){ ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Panel administrateur</a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
     </div>
 </nav>
 
@@ -54,20 +74,6 @@
                                 <div class="col-sm-6"><strong><?php echo $_SESSION['ddn']?></strong></div>
                             </div>
                         </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 offset-md-9 position-absolute top-0 end-0">
-            <div class="card">
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="/notifs">Notifications</a></li>
-                        <li class="list-group-item"><a href="/friendslist">Liste d'amis</a></li>
-                        <li class="list-group-item"><a href="/friends">Ajouter des amis</a></li>
-                        <?php if($_SESSION['email'] == 'a@gmail.com'){ ?>
-                            <li class="list-group-item"><a href="/admin">Panel administrateur</a></li>
-                        <?php }    ?>
                     </ul>
                 </div>
             </div>

@@ -6,9 +6,7 @@ use PDO;
 use PDOException;
 
 class Database extends PDO {
-
     public static ?Database $dbinstance = null;
-
     public function __construct(){
         try {
             $dbname = "stakiv3";

@@ -11,9 +11,7 @@ class Response {
         foreach($params  as $key => $value){
             $$key = $value;
         }
-
         $pageTitle = $this->pageTitle;
-
         require self::layoutPath ."header.php";
         require self::filePath . $page . ".php";
         require self::layoutPath . "footer.php";
@@ -23,7 +21,7 @@ class Response {
         exit();
     }
 
-    public function setPageTitle($pageTitle){
+    public function setPageTitle(string $pageTitle){
         $this->pageTitle = $pageTitle;
     }
 }

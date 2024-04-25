@@ -19,12 +19,14 @@ class StaksController {
 
     public function postStaks(Request $req, Response $res){
         $body = $req->bodyParser();
-        if(!empty($body['stak'])){
+        $stakText = trim($body['stak']);
+        if(!empty($stakText)){
             $request = "INSERT INTO staks (user_id, text) VALUES (:user_id, :text)";
-            Database::getInstance()->executeQuery($request, ['user_id' => $_SESSION['id'], 'text' => $body['stak']]);
+            Database::getInstance()->executeQuery($request, ['user_id' => $_SESSION['id'], 'text' => $stakText]);
         } else {
             $_SESSION['stakError'] = "Poster un stak vide ? T'as pas trouver plus con ?";
         }
         $res->redirect('');
     }
+
 }
