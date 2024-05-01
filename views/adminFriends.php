@@ -22,18 +22,20 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>ID Utilisateur</th>
+                <th>Username utilisateur</th>
                 <th>ID Ami</th>
+                <th>Username ami</th>
             </tr>
             </thead>
             <tbody>
             <?php /** @var array $amis */
             foreach ($amis as $row): ?>
                 <tr>
-                    <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['user_id']; ?></td>
+                    <td><?php echo $row['user_username']; ?></td>
                     <td><?php echo $row['ami_id']; ?></td>
+                    <td><?php echo $row['ami_username']; ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

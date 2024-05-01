@@ -14,28 +14,31 @@
     </div>
 </nav>
 
-<h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5">Notifications</h1>
+
 
 <div class="container" style="margin-top: 50px;">
+    <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5">Notifications</h1>
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>ID Utilisateur</th>
+                <th>Nom d'utilisateur</th>
                 <th>Message</th>
                 <th>ID Expéditeur</th>
+                <th>Nom d'utilisateur Expéditeur</th>
                 <th>Date de création</th>
             </tr>
             </thead>
             <tbody>
             <?php /** @var array $notifs */
-            foreach ($notifs as $row): ?>
+            foreach (array_reverse($notifs) as $row): ?>
                 <tr>
-                    <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['user_id']; ?></td>
+                    <td><?php echo $row['receiver_username']; ?></td>
                     <td><?php echo $row['message']; ?></td>
                     <td><?php echo $row['sender_id']; ?></td>
+                    <td><?php echo $row['sender_username']; ?></td>
                     <td><?php echo $row['created_at']; ?></td>
                 </tr>
             <?php endforeach; ?>

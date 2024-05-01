@@ -27,18 +27,20 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>ID Utilisateur</th>
+                <th>Nom d'utilisateur</th>
                 <th>ID Utilisateur ajouté</th>
+                <th>Nom d'utilisateur ajouté</th>
             </tr>
             </thead>
             <tbody>
             <?php /** @var array $demande_amis */
             foreach ($demande_amis as $row): ?>
                 <tr>
-                    <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['user_id']; ?></td>
+                    <td><?php echo $row['sender_username']; ?></td>
                     <td><?php echo $row['addedUser_id']; ?></td>
+                    <td><?php echo $row['receiver_username']; ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

@@ -27,10 +27,10 @@ CREATE TABLE IF NOT EXISTS demande_ami (
 
 CREATE TABLE IF NOT EXISTS notifications (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
     message VARCHAR(255),
-    sender_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id INT,
+    sender_id INT,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (sender_id) REFERENCES users(id)
 );

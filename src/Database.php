@@ -9,7 +9,7 @@ class Database extends PDO {
     public static ?Database $dbinstance = null;
     public function __construct(){
         try {
-            $dbname = "stakiv3";
+            $dbname = "staki";
             $user = "root";
             $passwd = "";
             parent::__construct("mysql:host=localhost;dbname=$dbname", $user, $passwd);

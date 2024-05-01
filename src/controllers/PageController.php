@@ -31,12 +31,10 @@ class PageController {
         $res->setPageTitle('Notifications');
         $res->render('notifs');
     }
-
     public function getContact(Request $req, Response $res){
         $res->setPageTitle('Contact');
         $res->render('contact');
     }
-
     public function contact(Request $req, Response $res) : void{
         $body = $req->bodyParser();
         $mailer = new MailService();

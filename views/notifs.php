@@ -20,44 +20,45 @@
     </div>
 </nav>
 
-<div class="container">
-    <h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Notifications :</h1>
 
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <?php foreach ($_SESSION['notifAmi'] as $row): ?>
-                <div class="card mb-3">
-                    <div class="card-header bg-primary text-white">
-                        <span class="font-weight-bold" style="font-size: 1.2rem;"><?= $row['sender_username'] ?></span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text" style="font-size: 1.1rem;"><?= $row['message'] ?></p>
-                        <p class="card-text text-muted" style="font-size: 1rem;">Envoyé le : <?= $row['created_at'] ?></p>
-                        <div class="d-flex justify-content-end">
-                            <form action="/notifs" method="POST" class="mr-2">
-                                <input type="hidden" name="notification_id" value="<?= $row['id'] ?>">
-                                <button type="submit" class="btn btn-danger" name="refuser" value="refuser">Refuser</button>
-                            </form>
-                            <form action="/notifs" method="POST">
-                                <input type="hidden" name="notification_id" value="<?= $row['id'] ?>">
-                                <button type="submit" class="btn btn-success" name="accepter" value="accepter">Accepter</button>
-                            </form>
-                        </div>
+
+<h1 class="display-4 text-primary text-center text-uppercase font-weight-bold mb-5" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2); padding: 10px 0;">Notifications :</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <?php foreach ($_SESSION['notifAmi'] as $row): ?>
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <span class="font-weight-bold" style="font-size: 1.2rem;"><?= $row['sender_username'] ?></span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" style="font-size: 1.1rem;"><?= $row['message'] ?></p>
+                    <p class="card-text text-muted" style="font-size: 1rem;">Envoyé le : <?= $row['created_at'] ?></p>
+                    <div class="d-flex justify-content-end">
+                        <form action="/notifs" method="POST" class="mr-2">
+                            <input type="hidden" name="notification_id" value="<?= $row['id'] ?>">
+                            <button type="submit" class="btn btn-danger" name="refuser" value="refuser">Refuser</button>
+                        </form>
+                        <form action="/notifs" method="POST">
+                            <input type="hidden" name="notification_id" value="<?= $row['id'] ?>">
+                            <button type="submit" class="btn btn-success" name="accepter" value="accepter">Accepter</button>
+                        </form>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            </div>
+        <?php endforeach; ?>
 
-            <?php foreach ($_SESSION['notifsResult'] as $row): ?>
-                <div class="card mb-3">
-                    <div class="card-header bg-primary text-white">
-                        <span class="font-weight-bold" style="font-size: 1.2rem;"><?= $row['sender_username'] ?></span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text" style="font-size: 1.1rem;"><?= $row['message'] ?></p>
-                        <p class="card-text text-muted" style="font-size: 1rem;">Envoyé le : <?= $row['created_at'] ?></p>
-                    </div>
+        <?php foreach ($_SESSION['notifsResult'] as $row): ?>
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <span class="font-weight-bold" style="font-size: 1.2rem;"><?= $row['sender_username'] ?></span>
                 </div>
-            <?php endforeach; ?>
-        </div>
+                <div class="card-body">
+                    <p class="card-text" style="font-size: 1.1rem;"><?= $row['message'] ?></p>
+                    <p class="card-text text-muted" style="font-size: 1rem;">Envoyé le : <?= $row['created_at'] ?></p>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
+</div>
 </div>

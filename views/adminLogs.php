@@ -21,8 +21,8 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>ID Utilisateur</th>
+                <th>Nom d'utilisateur</th>
                 <th>Action</th>
                 <th>Timestamp</th>
             </tr>
@@ -31,8 +31,8 @@
             <?php /** @var array $logs */
             foreach (array_reverse($logs) as $row): ?>
                 <tr>
-                    <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['user_id']; ?></td>
+                    <td><?php echo $row['username']; ?></td>
                     <td><?php echo $row['action']; ?></td>
                     <td><?php echo $row['time']; ?></td>
                 </tr>

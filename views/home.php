@@ -50,8 +50,7 @@
         foreach ($staks as $row): ?>
             <div class="card mb-3 ">
                 <div class="card-header bg-primary text-white">
-                    <span class="font-weight-bold" style="font-size: 1.2rem;"><?php
-                        echo \App\models\UserModel::getUser(\App\Database::getInstance(), 'id', $row['user_id'])['username']; ?></span>
+                    <span class="font-weight-bold" style="font-size: 1.2rem;"><?= $row['username'] ?></span>
                 </div>
                 <div class="card-body">
                     <p class="card-text" style="font-size: 1.1rem;"><?= $row['text'] ?></p>
@@ -61,3 +60,20 @@
         <?php endforeach; ?>
     </div>
 </div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", e => {
+            let preventMultipleSubmits = e => {
+            let form = e.currentTarget
+            if (form.alreadySubmitted) {
+                return e.preventDefault()
+            }
+            form.alreadySubmitted = true
+        }
+        document.querySelectorAll("form").forEach(form => {
+            form.addEventListener("submit", preventMultipleSubmits)
+        })
+    })
+
+</script>

@@ -10,13 +10,13 @@ use mysql_xdevapi\Result;
 
 class StaksController {
     public function getStaks(Request $req, Response $res) {
-        $staks = UserModel::showTable('staks');
+        $request = "select staks.user_id, staks.text, staks.time, users.username from staks inner join users ON staks.user_id = users.id";
+        $staks = Database::getInstance()->executeQuery($request)->fetchAll(\PDO::FETCH_ASSOC);
         $res->setPageTitle('Staki');
         $res->render('home', [
             'staks' => $staks,
         ]);
     }
-
     public function postStaks(Request $req, Response $res){
         $body = $req->bodyParser();
         $stakText = trim($body['stak']);
@@ -28,5 +28,4 @@ class StaksController {
         }
         $res->redirect('');
     }
-
 }
